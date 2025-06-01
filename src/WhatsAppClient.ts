@@ -1,6 +1,7 @@
 import makeWASocket, { useMultiFileAuthState, WASocket } from '@whiskeysockets/baileys';
 import qrcode from 'qrcode-terminal';
 import path from 'path';
+import logger from './logger';
 
 class WhatsAppClient {
   private sock: WASocket | null = null;
@@ -34,10 +35,10 @@ class WhatsAppClient {
       }
       if (connection === 'close') {
         const shouldReconnect = (lastDisconnect?.error as any)?.output?.statusCode !== 401;
-        console.log('connection closed. Reconnecting:', shouldReconnect);
+        logger.info('connection closed. Reconnecting:', shouldReconnect);
         if (shouldReconnect) this.open();
       } else if (connection === 'open') {
-        console.log('Connected to WhatsApp!');
+        logger.info('Connected to WhatsApp!');
         this.readyResolve();
       }
     });
@@ -51,7 +52,9 @@ class WhatsAppClient {
     if (!to.endsWith('@s.whatsapp.net')) {
       to = to.replace(/\D/g, '') + '@s.whatsapp.net';
     }
+    logger.info(`Sending message to: ${to}`);
     await this.sock.sendMessage(to, { text: message });
+    logger.info('Message sent!');
   }
 }
 

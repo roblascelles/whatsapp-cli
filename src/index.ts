@@ -1,6 +1,7 @@
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import WhatsAppClient from './WhatsAppClient';
+import logger from './logger';
 
 const argv = yargs(hideBin(process.argv))
   .option('to', {
@@ -21,9 +22,8 @@ const argv = yargs(hideBin(process.argv))
   await client.open();
   try {
     await client.send(argv.to as string, argv.message as string);
-    console.log('Message sent!');
   } catch (err) {
-    console.error('Failed to send message:', err);
+    logger.error('Failed to send message:', err);
   } finally {
     process.exit(0);
   }
