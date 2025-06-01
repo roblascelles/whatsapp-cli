@@ -1,4 +1,4 @@
-/// <reference path="../qrcode-terminal.d.ts" />
+/// <reference path="../types/qrcode-terminal.d.ts" />
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import makeWASocket, { useMultiFileAuthState } from '@whiskeysockets/baileys';

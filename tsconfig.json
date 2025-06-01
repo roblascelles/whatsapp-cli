@@ -102,6 +102,6 @@
   },
   "include": [
     "src",
-    "qrcode-terminal.d.ts"
+    "types/qrcode-terminal.d.ts"
   ]
 }
